@@ -47,7 +47,9 @@ router.post('/', (req,res,next) => {
 // Singular Product handler
 router.get('/:productId', (req,res,next) => {
 	const id = req.params.productId;
-	Product.findById(id)
+
+	Product
+	  .findById(id)
 	  .exec()
 	  .then(doc => {
 	  	console.log("From Database", doc);
@@ -59,7 +61,7 @@ router.get('/:productId', (req,res,next) => {
 	  })
 	  .catch(err => {
 	  	console.log(err);
-	  	res.status(500).json({"error":err})
+	  	res.status(500).json({"error":err});
 	  });
 });
 
@@ -82,8 +84,9 @@ router.delete('/:productId', (req,res,next) => {
 
 router.patch('/:productId', (req,res,next) => {
 	const id = req.params.productId;
-	const updateOps = {};
 
+	// update the changed key only
+	const updateOps = {};
 	for(const ops of req.body) {
 		updateOps[ops.propName] = ops.value;
 	}

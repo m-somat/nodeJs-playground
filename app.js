@@ -9,7 +9,7 @@ mongoose.connect(
 	'mongodb+srv://' +
 	process.env.MONGO_ATLAS_user + ':' +
 	process.env.MONGO_ATLAS_PW +
-	'@cluster0.f652a.mongodb.net/playGroundDatabase?retryWrites=true&w=majority',
+	'@api-cluster.f652a.mongodb.net/playGroundDatabase?retryWrites=true&w=majority',
 	{
 		useNewUrlParser: true,
 		useUnifiedTopology: true
