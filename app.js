@@ -6,7 +6,8 @@ const mongoose = require('mongoose');
 
 // connect to Mongoose driver to coennect to MongoDB
 mongoose.connect(
-	'mongodb+srv://m_somat:' +
+	'mongodb+srv://' +
+	process.env.MONGO_ATLAS_user + ':' +
 	process.env.MONGO_ATLAS_PW +
 	'@cluster0.f652a.mongodb.net/playGroundDatabase?retryWrites=true&w=majority',
 	{
