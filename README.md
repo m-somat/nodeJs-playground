@@ -6,7 +6,7 @@ Note: I ignored a "nodemon.json" file as it contained my Mongodb Atlas user & pa
 it had this form inside:
 {
     "env": {
-        "MONGO_ATLAS_user": <your ATLAS project username>
-        "MONGO_ATLAS_PW": <your ATLAS project password>
+        "MONGO_ATLAS_user": "your ATLAS project username",
+        "MONGO_ATLAS_PW": "your ATLAS project password"
     }
 }
