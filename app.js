@@ -43,7 +43,7 @@ app.use('/orders', orderRoutes);
 
 // error handlers
 app.use((req,res,next) => {
-	const error = new Error('Not Found');
+	const error = new Error('Entry Not Found');
 	error.status = 404;
 	next(error);
 })

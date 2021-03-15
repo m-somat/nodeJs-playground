@@ -8,6 +8,13 @@ const router = express.Router();
 const mongoose = require('mongoose');
 
 const Product = require('../models/product');
+const Order = require('../models/order');
+
+function Error(res,msg,status){
+	res.status(status).json({
+	  	"error": msg
+	})
+}
 
 // Products handler
 router.get('/', (req,res,next) => {
@@ -29,12 +36,7 @@ router.get('/', (req,res,next) => {
 	  	}
 	  	res.status(200).json(response);
 	  })
-	  .catch(err => {
-	  	console.log(err);
-	  	res.status(500).json({
-	  		"error": err
-	  	})
-	  })
+	  .catch(err => {Error(res,err,500)})
 })
 
 router.post('/', (req,res,next) => {
@@ -57,10 +59,7 @@ router.post('/', (req,res,next) => {
 			}
 		})
 	  })
-	  .catch(err => {
-	  	console.log(err);
-	  	res.status(500).json({"error":err})
-	  });
+	  .catch(err => {Error(res,err,500)})
 });
 
 
@@ -79,16 +78,21 @@ router.get('/:productId', (req,res,next) => {
 	  			"refererUrl": "go back: http://localhost:3000/products"
 	  		});
 	  	} else{
-	  		res.status(404).json({"msg": "product doesn't exist"})
+	  		Error(res,"Product Not Found!",404)
 	  	}
 	  })
-	  .catch(err => {
-	  	res.status(500).json({"error":err});
-	  });
+	  .catch(err => {Error(res,err,500)})
 });
 
 router.delete('/:productId', (req,res,next) => {
 	const id = req.params.productId;
+
+	// Order
+	//   .deleteMany({"product": id})
+	//   .then(result => {
+
+	//   })
+	//   .catch(err => {Error(res,err,500)})
 
 	Product
 	  .findOneAndDelete({"_id": id})
@@ -96,14 +100,16 @@ router.delete('/:productId', (req,res,next) => {
 	  .then(result => {
 	  	res.status(200).json({
 	  		"msg": "Deleted product: " + id,
-	  		"refererUrl": "go back: http://localhost:3000/products"
+	  		"refererUrl": "http://localhost:3000/products"
+	  	});
+	  	return Order.find({"product": id}).deleteMany()
+	  })
+	  .then(result => {
+	  	res.status().json({
+	  		"msg": "Deleted associated orders"
 	  	});
 	  })
-	  .catch(err => {
-	  	res.status(500).json({
-	  		"error": err
-	  	})
-	  });
+	  .catch(err => {Error(res,err,500)})
 });
 
 router.patch('/:productId', (req,res,next) => {
@@ -125,11 +131,7 @@ router.patch('/:productId', (req,res,next) => {
   			"url": "http://localhost:3000/products/" + id
   		});
 	  })
-	  .catch(err => {
-	  	res.status(500).json({
-	  		"error": err
-	  	});
-	  });
+	  .catch(err => {Error(res,err,500)})
 });
 
 module.exports = router;
