@@ -6,11 +6,38 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const multer = require('multer');
 
 const Product = require('../models/product');
 const Order = require('../models/order');
 
-function Error(res,msg,status){
+const storage = multer.diskStorage({
+	destination: function(req, file, cb){
+		cb(null, './uploads/');
+	},
+	filename: function(req,file,cb){
+		const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+		cb(null, uniqueSuffix +'-' + file.originalname)
+	}
+});
+
+const fileFilter = (req,file,cb) => {
+	if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+		cb(null, true) //store the file
+	} else { //reject the file
+		cb(new Error('file is not accepted'), false)
+	}
+}
+
+const upload = multer({
+	storage: storage,
+	limits: {
+		fileSize: 1024 * 1024 * 5 //5 MBs size limit
+	},
+	fileFilter: fileFilter
+});
+
+function myError(res,msg,status){
 	res.status(status).json({
 	  	"error": msg
 	})
@@ -20,7 +47,7 @@ function Error(res,msg,status){
 router.get('/', (req,res,next) => {
 	Product
 	  .find()
-	  .select("name price _id")
+	  .select("name price _id productImg")
 	  .exec()
 	  .then(docs => {
 	  	const response = {
@@ -30,20 +57,23 @@ router.get('/', (req,res,next) => {
 	  				"name": doc.name,
 	  				"price": doc.price,
 	  				"id": doc._id,
+	  				"productImg": doc.productImg,
 	  				"url": 'http://localhost:3000/products/' + doc._id
 	  			}
 	  		})
 	  	}
 	  	res.status(200).json(response);
 	  })
-	  .catch(err => {Error(res,err,500)})
+	  .catch(err => {myError(res,err,500)})
 })
 
-router.post('/', (req,res,next) => {
+router.post('/', upload.single('productImg'), (req,res,next) => {
+	console.log(req.file);
 	const product = new Product({
 		"_id": new mongoose.Types.ObjectId(),
 		"name": req.body.name,
-		"price": req.body.price
+		"price": req.body.price,
+		"productImg": req.file.path
 	})
 
 	product
@@ -55,11 +85,12 @@ router.post('/', (req,res,next) => {
 				"name": result.name,
 				"price": result.price,
 				"id": result._id,
+				"productImg": req.file.path,
 				"url": 'http://localhost:3000/products/' + result._id
 			}
 		})
 	  })
-	  .catch(err => {Error(res,err,500)})
+	  .catch(err => {myError(res,err,500)})
 });
 
 
@@ -69,7 +100,7 @@ router.get('/:productId', (req,res,next) => {
 
 	Product
 	  .findById(id)
-	  .select("name price _id")
+	  .select("name price _id productImg")
 	  .exec()
 	  .then(doc => {
 	  	if (doc){
@@ -78,21 +109,14 @@ router.get('/:productId', (req,res,next) => {
 	  			"refererUrl": "go back: http://localhost:3000/products"
 	  		});
 	  	} else{
-	  		Error(res,"Product Not Found!",404)
+	  		myError(res,"Product Not Found!",404)
 	  	}
 	  })
-	  .catch(err => {Error(res,err,500)})
+	  .catch(err => {myError(res,err,500)})
 });
 
 router.delete('/:productId', (req,res,next) => {
 	const id = req.params.productId;
-
-	// Order
-	//   .deleteMany({"product": id})
-	//   .then(result => {
-
-	//   })
-	//   .catch(err => {Error(res,err,500)})
 
 	Product
 	  .findOneAndDelete({"_id": id})
@@ -109,7 +133,7 @@ router.delete('/:productId', (req,res,next) => {
 	  		"msg": "Deleted associated orders"
 	  	});
 	  })
-	  .catch(err => {Error(res,err,500)})
+	  .catch(err => {myError(res,err,500)})
 });
 
 router.patch('/:productId', (req,res,next) => {
@@ -131,7 +155,7 @@ router.patch('/:productId', (req,res,next) => {
   			"url": "http://localhost:3000/products/" + id
   		});
 	  })
-	  .catch(err => {Error(res,err,500)})
+	  .catch(err => {myError(res,err,500)})
 });
 
 module.exports = router;
