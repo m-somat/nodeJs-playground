@@ -4,7 +4,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-// connect to Mongoose driver to coennect to MongoDB
+// connect to Mongoose driver to connect to MongoDB
 mongoose.connect(
 	'mongodb+srv://' +
 	process.env.MONGO_ATLAS_user + ':' +

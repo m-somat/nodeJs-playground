@@ -25,16 +25,16 @@ const fileFilter = (req,file,cb) => {
 	if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
 		cb(null, true) //store the file
 	} else { //reject the file
-		cb(new Error('file is not accepted'), false)
+		cb(new Error('File is not accepted'), false)
 	}
 }
 
 const upload = multer({
-	storage: storage,
-	limits: {
-		fileSize: 1024 * 1024 * 5 //5 MBs size limit
+	"storage": storage,
+	"limits": {
+		"fileSize": 1024 * 1024 * 5 //5 MBs size limit
 	},
-	fileFilter: fileFilter
+	"fileFilter": fileFilter
 });
 
 function myError(res,msg,status){
@@ -106,7 +106,7 @@ router.get('/:productId', (req,res,next) => {
 	  	if (doc){
 	  		res.status(200).json({
 	  			"product": doc,
-	  			"refererUrl": "go back: http://localhost:3000/products"
+	  			"refererUrl": "http://localhost:3000/products"
 	  		});
 	  	} else{
 	  		myError(res,"Product Not Found!",404)
