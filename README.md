@@ -2,7 +2,8 @@
 
 RESTful API for online shopping applications. My API allows users to read/write/delete/update products and read/write/delete orders.
 
-Middlewares:
+### Middlewares:
+
 I used [Express](https://expressjs.com/en/guide/using-middleware.html) web framework for routing, calling and controlling middlewares
 
 * [Morgan](http://expressjs.com/en/resources/middleware/morgan.html)
@@ -10,7 +11,7 @@ I used [Express](https://expressjs.com/en/guide/using-middleware.html) web frame
 * [mongoose](https://mongoosejs.com/docs/middleware.html)
 * [multer](http://expressjs.com/en/resources/middleware/multer.html)
 
-HTTP response status codes in this API:
+### HTTP response status codes in this API:
 * 200: **(Accessed)** The request has succeeded
 * 201: **(Created)** the request has succeeded and has led to the creation of a resource
 * 404: **(Not found)** the requested resource is valid but the server can't find it
