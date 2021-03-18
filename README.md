@@ -1,16 +1,6 @@
 # About
 
-This is my first RESTful API using nodeJS<br>
-My API provides simple shopping options. The client can do the following:
-* POST product
-* GET all products
-* GET product
-* PATCH product
-* DELTE product
-* POST order
-* GET all orders
-* GET order
-* DELETE order
+RESTful API for online shopping applications. My API allows users to read/write/delete/update products and read/write/delete orders.
 
 HTTP response status codes in this API:
 * 200: **(Accessed)** The request has succeeded
@@ -61,17 +51,19 @@ Notes:
 
 # Features
 
+Available API routes:
+
 | Request | Route | Response | Description |
 | --- | --- | :---: | ----------------- |
+| `POST` | /products | `201` | write new product:<br>**(Required)**`"name": String` product's name.<br>**(Required)**`"price": Number` product's price.<br>**(Optional)**`"productImg": File` product's image.<br>File options:<br>&nbsp;&nbsp;&nbsp;&nbsp;**Support**: JPG, JPEG, PNG<br>&nbsp;&nbsp;&nbsp;&nbsp;**Size Limit**: 5MB |
 | `GET` | /products | `200` | read all products in the database. |
-| `POST` | /products | `201` | write new product:<br>**(Required)**`"name": String` product's name.<br>**(Required)**`"price": Number` product's price.<br>**(Optional)**`"productImg": File` product's image. |
 | `GET` | /products/:productId | `200` | read product with the requested id. |
-| `PATCH` | /products/:productId | `200` | update product with the requested id. you can change one or more fields. |
+| `PATCH` | /products/:productId | `200` | update one or more fields for the requested product.<br>accepts an array of objects as follows:<br>&nbsp;&nbsp;&nbsp;&nbsp;**(Required)**`"propName": String` field to update (e.g. name or price).<br>&nbsp;&nbsp;&nbsp;&nbsp;**(Required)**`"value": String` new value for the field |
 | `DELETE` | /products/:productId | `200` | delete product with the requested id.<br>delete orders containing the product. |
+| `POST` | /orders | `201` | write new order:<br>**(Required)**`"product": ObjectId` product's id. Check [Mongoose docs](https://mongoosejs.com/docs/schematypes.html#objectids) for more information<br>**(Optional)**`"quantity": Number` products' quantity. Default => `quantity: 1` |
 | `GET` | /orders | `200` | read all orders in the database. |
-| `POST` | /orders | `201` | write new order:<br>**(Required)**`"product": ObjectId` product's id. Check [Mongoose docs](https://mongoosejs.com/docs/schematypes.html#objectids) for more information<br>**(Optional)**`"price": Number` product's price. Default => `price: 1` |
 | `GET` | /orders/:orderId | `200` | read order with the requested id. |
 | `DELETE` | /orders/:orderId | `200` | delete order with the requested id. |
 
-
+ 
 
