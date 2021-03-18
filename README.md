@@ -64,12 +64,12 @@ Available API routes:
 
 | Request | Route | Response | Description |
 | --- | :---: | :---: | --------------- |
-| `POST` | /products | `201` | write new product:<br>**(Required)**`"name": String` product's name.<br>**(Required)**`"price": Number` product's price.<br>**(Optional)**`"productImg": File` product's image.<br>File options:<br>&nbsp;&nbsp;&nbsp;&nbsp;**Support**: JPG, JPEG, PNG<br>&nbsp;&nbsp;&nbsp;&nbsp;**Size Limit**: 5MB |
+| `POST` | /products | `201` | write new product:<br>`"name": String` **(Required)** product's name.<br>`"price": Number` **(Required)** product's price.<br>`"productImg": File` **(Optional)** product's image.<br>File options:<br>&nbsp;&nbsp;&nbsp;&nbsp;**Support**: JPG, JPEG, PNG<br>&nbsp;&nbsp;&nbsp;&nbsp;**Size Limit**: 5MB |
 | `GET` | /products | `200` | read all products in the database. |
 | `GET` | /products/:productId | `200` | read product with the requested id. |
-| `PATCH` | /products/:productId | `200` | update one or more fields for the requested product.<br>accepts an array of objects as follows:<br>&nbsp;&nbsp;&nbsp;&nbsp;**(Required)**`"propName": String` field to update (e.g. name or price).<br>&nbsp;&nbsp;&nbsp;&nbsp;**(Required)**`"value": String` new value for the field |
+| `PATCH` | /products/:productId | `200` | update one or more fields for the requested product.<br>accepts an array of objects as follows:<br>&nbsp;&nbsp;&nbsp;&nbsp;`"propName": String` **(Required)** field to update (e.g. name or price).<br>&nbsp;&nbsp;&nbsp;&nbsp;`"value": String` **(Required)** new value for the field |
 | `DELETE` | /products/:productId | `200` | delete product with the requested id.<br>delete orders containing the product. |
-| `POST` | /orders | `201` | write new order:<br>**(Required)**`"product": ObjectId` product's id. Check [Mongoose docs](https://mongoosejs.com/docs/schematypes.html#objectids) for more information<br>**(Optional)**`"quantity": Number` products' quantity. Default => `quantity: 1` |
+| `POST` | /orders | `201` | write new order:<br>`"product": ObjectId` **(Required)** product's id. Check [Mongoose docs](https://mongoosejs.com/docs/schematypes.html#objectids) for more information<br>`"quantity": Number` **(Optional)** products' quantity. Default => `quantity: 1` |
 | `GET` | /orders | `200` | read all orders in the database. |
 | `GET` | /orders/:orderId | `200` | read order with the requested id. |
 | `DELETE` | /orders/:orderId | `200` | delete order with the requested id. |
