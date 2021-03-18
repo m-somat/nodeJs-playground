@@ -2,6 +2,14 @@
 
 RESTful API for online shopping applications. My API allows users to read/write/delete/update products and read/write/delete orders.
 
+Middlewares:
+I used [Express](https://expressjs.com/en/guide/using-middleware.html) web framework for routing, calling and controlling middlewares
+
+* [Morgan](http://expressjs.com/en/resources/middleware/morgan.html)
+* [body-parser](https://www.npmjs.com/package/body-parser)
+* [mongoose](https://mongoosejs.com/docs/middleware.html)
+* [multer](http://expressjs.com/en/resources/middleware/multer.html)
+
 HTTP response status codes in this API:
 * 200: **(Accessed)** The request has succeeded
 * 201: **(Created)** the request has succeeded and has led to the creation of a resource
@@ -54,7 +62,7 @@ Notes:
 Available API routes:
 
 | Request | Route | Response | Description |
-| --- | --- | :---: | ----------------- |
+| --- | :---: | :---: | --------------- |
 | `POST` | /products | `201` | write new product:<br>**(Required)**`"name": String` product's name.<br>**(Required)**`"price": Number` product's price.<br>**(Optional)**`"productImg": File` product's image.<br>File options:<br>&nbsp;&nbsp;&nbsp;&nbsp;**Support**: JPG, JPEG, PNG<br>&nbsp;&nbsp;&nbsp;&nbsp;**Size Limit**: 5MB |
 | `GET` | /products | `200` | read all products in the database. |
 | `GET` | /products/:productId | `200` | read product with the requested id. |
