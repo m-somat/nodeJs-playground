@@ -59,7 +59,7 @@ mongodb+srv://<username>:<password>@<clustername.id>.mongodb.net/<databaseName>?
 
 Notes:
 * I ignored "nodemon.json" file as it contains my database security keys but you have to add this file for the API to function
-* I ignored an "uploads/" folder for convenience as it contains user's form-data but you have to add this folder to avoid errors
+* I ignored an "uploads/" folder for convenience as it contains user's form-data but it will be created automatically once the user uploads a file
 
 # Features
 
