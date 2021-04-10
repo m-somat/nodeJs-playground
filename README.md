@@ -1,6 +1,6 @@
 # About
 
-RESTful API for online shopping applications. My API allows users to
+This is a RESTful API for online shopping applications. My API allows users to
 * signup/login/logout users
 * read/write/delete/update products.
 * read/write/delete orders.
@@ -76,7 +76,7 @@ I added user authentication features to set different roles dynamically. The tab
 ## API Resources
 | Request | Route | Security | Response | Description |
 | :---: | :---: | :---: | :---: | --------------- |
-| `POST` | /products | user | `201` | write new product:<br>`"name": String` **(Required)** product's name.<br>`"price": Number` **(Required)** product's price.<br>`"productImg": File` **(Optional)** product's image.<br>File options:<br>&nbsp;&nbsp;&nbsp;&nbsp;**Support**: JPG, JPEG, PNG<br>&nbsp;&nbsp;&nbsp;&nbsp;**Size Limit**: 5MB |
+| `POST` | /products | user | `201` | write new product:<br>`"name": String` **(Required)** product's name.<br>`"price": Number` **(Required)** product's price.<br>`"productImg": File` **(Optional)** product's image. Reads file using [multer](https://www.npmjs.com/package/multer)<br>File options:<br>&nbsp;&nbsp;&nbsp;&nbsp;**Support**: JPG, JPEG, PNG<br>&nbsp;&nbsp;&nbsp;&nbsp;**Size Limit**: 5MB |
 | `GET` | /products | public | `200` | read all products in the database. |
 | `GET` | /products/:productId | public | `200` | read product with the requested id. |
 | `PATCH` | /products/:productId | user | `200` | update one or more fields for the requested product.<br>accepts an array of objects as follows:<br>&nbsp;&nbsp;&nbsp;&nbsp;`"propName": String` **(Required)** field to update (e.g. name or price).<br>&nbsp;&nbsp;&nbsp;&nbsp;`"value": String` **(Required)** new value for the field |
