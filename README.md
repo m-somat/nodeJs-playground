@@ -22,6 +22,9 @@ I used [Express](https://expressjs.com/en/guide/using-middleware.html) web frame
 * 401: **(Unauthorized)** the request lacks valid authentication credentials for the target resource
 * 409: **(Conflict)** a request conflict with current state of the target resource
 
+## Recommendation
+I recommend installing [Postman](https://www.postman.com/downloads/) to try out the API features and check the requests' headers and cookies.
+
 # Installation
 
 Clone my repository
