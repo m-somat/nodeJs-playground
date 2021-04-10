@@ -1,6 +1,9 @@
 # About
 
-RESTful API for online shopping applications. My API allows users to read/write/delete/update products and read/write/delete orders.
+RESTful API for online shopping applications. My API allows users to
+* signup/login/logout users
+* read/write/delete/update products.
+* read/write/delete orders.
 
 ## Middlewares:
 
